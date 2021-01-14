@@ -16,7 +16,12 @@ class BaseAPI(abc.ABC):
 
     @abc.abstractmethod
     def plot(self, **kwargs):
-        raise NotImplementedError
+        title = kwargs.get('title')
+        df = kwargs.get('df')
+        cols = kwargs.get('cols')
+        df[cols].plot()
+        plt.title(title)
+        plt.show()
 
 class TimeSeriesAPI(BaseAPI):
     """
@@ -35,6 +40,24 @@ class TimeSeriesAPI(BaseAPI):
         data['4. close'].plot()
         plt.title('Intraday Times Series for the AAPL stock (15 min)')
         plt.show()
+
+class FundamentalDataAPI(BaseAPI):
+    """
+
+    xxx
+    """
+    def __init__(self):
+        super(FundamentalDataAPI, self).__init__()
+        self.fd = FundamentalData(key=self.api, output_format=self.output_format)
+
+    def get_company_overview(self, symbol):
+        return self.fd.get_company_overview(symbol)
+
+    def get_earnings(self, symbol):
+        return self.fd.get_income_statement_quarterly(symbol)
+
+    def plot(self, **kwargs):
+        return super().plot(**kwargs)
 
 
 class TechIndicatorsAPI(BaseAPI):
