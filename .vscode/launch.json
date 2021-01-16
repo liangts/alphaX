@@ -12,7 +12,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "env": {
-                "PYTHONPATH": "/mnt/d/Dev/alphaX/"
+                "PYTHONPATH": "/mnt/z/Projects/alphaX"
             }
         }
     ]
