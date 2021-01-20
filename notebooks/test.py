@@ -7,7 +7,7 @@ ts = TimeSeriesAPI()
 fd = FundamentalDataAPI()
 fe = ForeignExchangeAPI()
 
-data = fd.get_earnings("BILI")
+#data = fd.get_earnings("BILI")
 
 fe_rate = fe.get_exchange_rate("USD", "CNY")
 

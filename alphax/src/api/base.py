@@ -87,10 +87,10 @@ class ForeignExchangeAPI(BaseAPI):
         self.fe = ForeignExchange(key=self.api, output_format=self.output_format)
 
     def get_intraday(self, from_symbol, to_symbol, interval='15min', outputsize='compact'):
-        return self.fe.get_currency_exchange_intraday(self, from_symbol, to_symbol, interval=interval, outputsize=outputsize)
+        return self.fe.get_currency_exchange_intraday(from_symbol, to_symbol, interval=interval, outputsize=outputsize)
 
-    def get_exchange_rate(self, from_symbol, to_symbol):
-        return self.fe.get_currency_exchange_rate(self, from_symbol, to_symbol)
+    def get_exchange_rate(self, from_currency, to_currency):
+        return self.fe.get_currency_exchange_rate(from_currency, to_currency)
 
     def plot(self, **kwargs):
         from_symbol = kwargs.get('from_symbol')
