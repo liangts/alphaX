@@ -77,6 +77,28 @@ class TechIndicatorsAPI(BaseAPI):
         data.plot()
         plt.title('SMA for the AAPL stock (15 min)')
         plt.show()
+
+class ForeignExchangeAPI(BaseAPI):
+    """
+    API for ForeignExchange Data
+    """
+    def __init__(self):
+        super(ForeignExchangeAPI, self).__init__()
+        self.fe = ForeignExchange(key=self.api, output_format=self.output_format)
+
+    def get_intraday(self, from_symbol, to_symbol, interval='15min', outputsize='compact'):
+        return self.fe.get_currency_exchange_intraday(from_symbol, to_symbol, interval=interval, outputsize=outputsize)
+
+    def get_exchange_rate(self, from_currency, to_currency):
+        return self.fe.get_currency_exchange_rate(from_currency, to_currency)
+
+    def plot(self, **kwargs):
+        from_symbol = kwargs.get('from_symbol')
+        to_symbol = kwargs.get('to_symbol')
+        data, meta_data = self.get_intraday(from_symbol, to_symbol)
+        data['4. close'].plot()
+        plt.show()
+
         
 
 if __name__ == "__main__":
