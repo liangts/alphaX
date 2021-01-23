@@ -1,0 +1,1 @@
+"""Get MACD indicator."""
