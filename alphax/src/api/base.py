@@ -77,7 +77,7 @@ class TimeSeriesAPI(BaseAPI):
         plt.show()
 
     def api_delegation(self, func_name, **kwargs):
-        return super(TimeSeriesAPI, self).api_delegation(func_name, **kwargs)
+        return super().api_delegation(func_name, **kwargs)
 
 class FundamentalDataAPI(BaseAPI):
     """
@@ -96,6 +96,9 @@ class FundamentalDataAPI(BaseAPI):
 
     def plot(self, **kwargs):
         return super().plot(**kwargs)
+
+    def api_delegation(self, func_name, **kwargs):
+        return super().api_delegation(func_name, **kwargs)
 
 
 class TechIndicatorsAPI(BaseAPI):
@@ -125,6 +128,9 @@ class TechIndicatorsAPI(BaseAPI):
         plt.title('SMA for the AAPL stock (15 min)')
         plt.show()
 
+    def api_delegation(self, func_name, **kwargs):
+        return super().api_delegation(func_name, **kwargs)
+
 class ForeignExchangeAPI(BaseAPI):
     """
     API for ForeignExchange Data
@@ -145,6 +151,9 @@ class ForeignExchangeAPI(BaseAPI):
         data, meta_data = self.get_intraday(from_symbol, to_symbol)
         data['4. close'].plot()
         plt.show()
+
+    def api_delegation(self, func_name, **kwargs):
+        return super().api_delegation(func_name, **kwargs)
 
         
 
