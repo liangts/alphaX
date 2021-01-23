@@ -1,4 +1,5 @@
 import abc
+from numpy.lib.arraysetops import isin
 import pandas as pd
 import matplotlib.pyplot as plt
 from alpha_vantage.timeseries import TimeSeries
@@ -31,6 +32,26 @@ class BaseAPI(abc.ABC):
         plt.title(title)
         plt.show()
 
+    @abc.abstractmethod
+    def api_delegation(self, func_name, **kwargs):
+        """Pass the original API func to execute."""
+        if isinstance(self, TimeSeriesAPI):
+            obj = TimeSeries(key=self.api, output_format=self.output_format)
+            func = getattr(obj, func_name)
+            return func(**kwargs)
+        if isinstance(self, ForeignExchangeAPI):
+            obj = ForeignExchange(key=self.api, output_format=self.output_format)
+            func = getattr(obj, func_name)
+            return func(**kwargs)
+        if isinstance(self, FundamentalDataAPI):
+            obj = FundamentalData(key=self.api, output_format=self.output_format)
+            func = getattr(obj, func_name)
+            return func(**kwargs)
+        if isinstance(self, TechIndicatorsAPI):
+            obj = TechIndicators(key=self.api, output_format=self.output_format)
+            func = getattr(obj, func_name)
+            return func(**kwargs)
+
 class TimeSeriesAPI(BaseAPI):
     """
     This TimeSeries API is for demo use only.
@@ -55,6 +76,9 @@ class TimeSeriesAPI(BaseAPI):
         plt.title('Intraday Times Series for the AAPL stock (15 min)')
         plt.show()
 
+    def api_delegation(self, func_name, **kwargs):
+        return super(TimeSeriesAPI, self).api_delegation(func_name, **kwargs)
+
 class FundamentalDataAPI(BaseAPI):
     """
 
@@ -76,7 +100,16 @@ class FundamentalDataAPI(BaseAPI):
 
 class TechIndicatorsAPI(BaseAPI):
     """
-    aaa
+    Get Technical indicator.
+
+    Keyword Arguments:
+        symbol:  the symbol for the equity we want to get its data
+        interval:  time interval between two conscutive values,
+            supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+            'weekly', 'monthly' (default 'daily')
+        time_period:  How many data points to average (default 20)
+        series_type:  The desired price type in the time series. Four types
+            are supported: 'close', 'open', 'high', 'low' (default 'close')
     """
     def __init__(self):
         super(TechIndicatorsAPI, self).__init__()

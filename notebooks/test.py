@@ -1,19 +1,12 @@
-from alphax.src.api.base import TimeSeriesAPI, FundamentalDataAPI, ForeignExchangeAPI
+from alphax.src.api.base import BaseAPI, TimeSeriesAPI, FundamentalDataAPI, ForeignExchangeAPI
 import sys
 
 print(sys.path)
 
 ts = TimeSeriesAPI()
-fd = FundamentalDataAPI()
-fe = ForeignExchangeAPI()
-
-# data = fd.get_earnings("BILI")
-
-# fe_rate = fe.get_exchange_rate("USD", "CNY")
+# fd = FundamentalDataAPI()
+# fe = ForeignExchangeAPI()
 
 
-# ts.plot(symbol="AAPL")
-
-usd_idx, meta_data = ts.get_daily_adjusted("^DXY")
-
-print(usd_idx)
+aapl_daily_ts = ts.api_delegation("get_intraday", symbol="AAPL")
+print(aapl_daily_ts)
