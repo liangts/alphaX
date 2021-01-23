@@ -7,9 +7,13 @@ ts = TimeSeriesAPI()
 fd = FundamentalDataAPI()
 fe = ForeignExchangeAPI()
 
-#data = fd.get_earnings("BILI")
+# data = fd.get_earnings("BILI")
 
-fe_rate = fe.get_exchange_rate("USD", "CNY")
+# fe_rate = fe.get_exchange_rate("USD", "CNY")
 
-print(fe_rate)
+
 # ts.plot(symbol="AAPL")
+
+usd_idx, meta_data = ts.get_daily_adjusted("^DXY")
+
+print(usd_idx)

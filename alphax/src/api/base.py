@@ -6,6 +6,14 @@ from alpha_vantage.foreignexchange import ForeignExchange
 from alpha_vantage.fundamentaldata import FundamentalData
 from alpha_vantage.techindicators import TechIndicators
 
+class APICollections:
+    """
+    Save all APIs here.
+    """
+
+    def __init__(self) -> None:
+        self.alpha_vantage_api = "EBTAWY5OM01VMCW5"
+
 class BaseAPI(abc.ABC):
     """
     alpha vantage base API deletator
@@ -33,6 +41,12 @@ class TimeSeriesAPI(BaseAPI):
 
     def get_intraday(self, symbol, interval="15min", outputsize="full"):
         return self.ts.get_intraday(symbol, interval=interval, outputsize=outputsize)
+
+    def get_daily(self, symbol):
+        return self.ts.get_daily(symbol=symbol)
+
+    def get_daily_adjusted(self, symbol):
+        return self.ts.get_daily_adjusted(symbol=symbol)
 
     def plot(self, **kwargs):
         symbol = kwargs.get('symbol')
